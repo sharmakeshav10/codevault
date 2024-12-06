@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { initialFormData } from "../utils/data";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { createPaste } from "../redux/slices/pasteSlice";
 
 const CreatePaste = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [searchParams, setSearchParams] = useSearchParams();
   const pasteId = searchParams.get("pasteId");
   console.log("SEARCHP: ", pasteId);
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,6 +22,23 @@ const CreatePaste = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    const paste = {
+      title: formData.title,
+      content: formData.content,
+      _id: pasteId || crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+    };
+
+    if (pasteId) {
+      //edit
+    } else {
+      //create new paste
+      dispatch(createPaste(paste));
+    }
+
+    // setFormData(initialFormData);
+    setSearchParams({});
   };
 
   return (
