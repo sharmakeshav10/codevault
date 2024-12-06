@@ -29,6 +29,9 @@ export const pasteSlice = createSlice({
         className: "p-2 bg-green",
       });
     },
+    editPaste: (state, action) => {
+      const pasteId = action.payload;
+    },
   },
 });
 

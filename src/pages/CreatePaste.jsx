@@ -44,7 +44,7 @@ const CreatePaste = () => {
   return (
     <div>
       <form onSubmit={handleFormSubmit} className="my-4 space-y-6">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-center gap-2">
           <label className="text-md font-medium">Title</label>
           <input
             type="text"
@@ -55,7 +55,7 @@ const CreatePaste = () => {
             className="border border-slate-300 shadow-sm w-[50%] rounded-lg p-2"
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-center gap-2">
           <label className="text-md font-medium">Content</label>
           <textarea
             value={formData.content}
@@ -65,7 +65,7 @@ const CreatePaste = () => {
             className="border border-slate-300 shadow-sm w-[50%] rounded-lg"
           />
         </div>
-        <div className="flex gap-3">
+        <div className="flex justify-center gap-3">
           <button
             type="submit"
             className="bg-black text-white text-md font-semibold p-2 px-4 rounded-lg"
