@@ -30,10 +30,33 @@ export const pasteSlice = createSlice({
       });
     },
     editPaste: (state, action) => {
+      const paste = action.payload;
+      const index = state.pastes.findIndex((item) => item._id === paste._id);
+
+      if (index >= 0) {
+        state.pastes[index] = paste;
+        localStorage.setItem("pastes", JSON.stringify(state.pastes));
+
+        toast("Paste updated successfully");
+      }
+    },
+    deletePaste: (state, action) => {
       const pasteId = action.payload;
+      const index = state.pastes.findIndex((item) => item._id === pasteId);
+
+      if (index >= 0) {
+        state.pastes.splice(index, 1);
+        localStorage.setItem("pastes", JSON.stringify(state.pastes));
+        toast("Paste deleted");
+      }
+    },
+    removeAllPastes: (state, action) => {
+      state.pastes = [];
+      localStorage.removeItem("pastes");
     },
   },
 });
 
-export const { createPaste } = pasteSlice.actions;
+export const { createPaste, editPaste, deletePaste, removeAllPastes } =
+  pasteSlice.actions;
 export default pasteSlice.reducer;

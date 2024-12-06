@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { FaRegEdit, FaRegEye } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { deletePaste, removeAllPastes } from "../redux/slices/pasteSlice";
 
 const AllPastes = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -14,8 +15,18 @@ const AllPastes = () => {
     paste.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleDeletePaste = (pasteId) => {
+    dispatch(deletePaste(pasteId));
+  };
+
+  const handleRemoveAllPastes = () => {
+    dispatch(removeAllPastes());
   };
 
   return (
@@ -29,10 +40,15 @@ const AllPastes = () => {
           value={searchQuery}
           onChange={handleChange}
         />
-        <div className="border flex items-center p-2 rounded-lg px-4">
-          <Link to={"/create-paste"}>
-            <button>New Paste</button>
-          </Link>
+        <div className="flex gap-2">
+          <div className="border flex items-center p-2 rounded-lg px-4">
+            <Link to={"/create-paste"}>
+              <button>New Paste</button>
+            </Link>
+          </div>
+          <div className="border flex items-center p-2 rounded-lg px-4">
+            <button onClick={handleRemoveAllPastes}>Remove All</button>
+          </div>
         </div>
       </div>
 
@@ -57,7 +73,10 @@ const AllPastes = () => {
                   <div className="mr-4 cursor-pointer border p-2">
                     <FaRegEdit />
                   </div>
-                  <div className="cursor-pointer border p-2">
+                  <div
+                    className="cursor-pointer border p-2"
+                    onClick={() => handleDeletePaste(filteredPaste._id)}
+                  >
                     <RiDeleteBinLine />
                   </div>
                 </div>
