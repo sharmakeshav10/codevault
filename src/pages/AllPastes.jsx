@@ -4,6 +4,9 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deletePaste, removeAllPastes } from "../redux/slices/pasteSlice";
+import { MdOutlineContentCopy } from "react-icons/md";
+import { CiShare2 } from "react-icons/ci";
+import { toast } from "react-toastify";
 
 const AllPastes = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -71,13 +74,26 @@ const AllPastes = () => {
                     <FaRegEye />
                   </div>
                   <div className="mr-4 cursor-pointer border p-2">
-                    <FaRegEdit />
+                    <Link to={`/create-paste?pasteId=${filteredPaste._id}`}>
+                      <FaRegEdit />
+                    </Link>
                   </div>
                   <div
-                    className="cursor-pointer border p-2"
+                    className="mr-4 cursor-pointer border p-2"
                     onClick={() => handleDeletePaste(filteredPaste._id)}
                   >
                     <RiDeleteBinLine />
+                  </div>
+                  <div className="mr-4 cursor-pointer border p-2">
+                    <MdOutlineContentCopy
+                      onClick={() => {
+                        navigator.clipboard.writeText(filteredPaste?.content);
+                        toast("copied to clipboard");
+                      }}
+                    />
+                  </div>
+                  <div className="cursor-pointer border p-2">
+                    <CiShare2 />
                   </div>
                 </div>
                 <div>{filteredPaste.createdAt}</div>

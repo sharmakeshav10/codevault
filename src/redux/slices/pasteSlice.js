@@ -50,7 +50,7 @@ export const pasteSlice = createSlice({
         toast("Paste deleted");
       }
     },
-    removeAllPastes: (state, action) => {
+    removeAllPastes: (state) => {
       state.pastes = [];
       localStorage.removeItem("pastes");
     },
