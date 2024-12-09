@@ -7,6 +7,7 @@ import { deletePaste, removeAllPastes } from "../redux/slices/pasteSlice";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { CiShare2 } from "react-icons/ci";
 import { toast } from "react-toastify";
+import Button from "../components/Button";
 
 const AllPastes = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,7 +34,7 @@ const AllPastes = () => {
   };
 
   return (
-    <div className="mt-4">
+    <div className="my-8 space-y-4">
       {/* search input */}
       <div className="flex justify-between">
         <input
@@ -44,15 +45,16 @@ const AllPastes = () => {
           onChange={handleChange}
         />
         <div className="flex gap-2">
-          <div className="border flex items-center p-2 rounded-lg px-4">
-            <Link to={"/create-paste"}>
-              <button>New Paste</button>
-            </Link>
-          </div>
-          <div className="border flex items-center p-2 rounded-lg px-4">
-            <button onClick={handleRemoveAllPastes}>Remove All</button>
-          </div>
+          <Link to={"/create-paste"}>
+            <Button content={"New Paste"} />
+          </Link>
+
+          <Button onClick={handleRemoveAllPastes} content={"Remove All"} />
         </div>
+      </div>
+
+      <div>
+        <h1 className="text-3xl font-bold">All Pastes</h1>
       </div>
 
       {/* pastes section  */}
@@ -71,7 +73,9 @@ const AllPastes = () => {
               <div className="flex flex-col gap-y-3">
                 <div className="flex items-center">
                   <div className="mr-4 cursor-pointer border p-2">
-                    <FaRegEye />
+                    <Link to={`/pastes/${filteredPaste._id}`}>
+                      <FaRegEye />
+                    </Link>
                   </div>
                   <div className="mr-4 cursor-pointer border p-2">
                     <Link to={`/create-paste?pasteId=${filteredPaste._id}`}>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { initialFormData } from "../utils/data";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createPaste, editPaste } from "../redux/slices/pasteSlice";
+import Button from "../components/Button";
 
 const CreatePaste = () => {
   const [formData, setFormData] = useState(initialFormData);
@@ -55,10 +56,14 @@ const CreatePaste = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleFormSubmit} className="my-4 space-y-6">
-        <div className="flex flex-col items-center gap-2">
-          <label className="text-md font-medium">Title</label>
+    <div className="mt-10">
+      <div>
+        <h1 className="text-3xl font-bold">
+          {pasteId ? "Edit Snippet" : "Create a New Paste"}
+        </h1>
+      </div>
+      <form onSubmit={handleFormSubmit} className="my-8 space-y-6">
+        <div className="flex gap-2">
           <input
             type="text"
             placeholder="Enter title here"
@@ -67,27 +72,26 @@ const CreatePaste = () => {
             onChange={handleChange}
             className="border border-slate-300 shadow-sm w-[50%] rounded-lg p-2"
           />
+          <Link to={"/pastes"}>
+            <div className="ml-10">
+              <Button content={"View All Pastes"} />
+            </div>
+          </Link>
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <label className="text-md font-medium">Content</label>
+        <div className="flex gap-2">
           <textarea
             value={formData.content}
             name="content"
             onChange={handleChange}
-            rows={20}
+            rows={10}
             className="border border-slate-300 shadow-sm w-[50%] rounded-lg"
           />
         </div>
-        <div className="flex justify-center gap-3">
-          <button
-            type="submit"
-            className="bg-black text-white text-md font-semibold p-2 px-4 rounded-lg"
-          >
-            {pasteId ? "Edit Paste" : "Create Paste"}
-          </button>
-          <button className="bg-black text-white text-md font-semibold p-2 px-4 rounded-lg">
-            Cancel
-          </button>
+        <div className="flex gap-3">
+          <Button content={pasteId ? "Edit Paste" : "Create Paste"} />
+          <Link to={"/pastes"}>
+            <Button content={"Cancel"} />
+          </Link>
         </div>
       </form>
     </div>
