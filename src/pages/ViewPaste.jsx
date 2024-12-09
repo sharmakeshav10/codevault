@@ -11,7 +11,7 @@ const ViewPaste = () => {
   const paste = allPastes.filter((p) => p._id === id)[0];
 
   return (
-    <div className="my-8 space-y-6">
+    <div className="my-8 space-y-6 ">
       <div className="flex gap-2">
         <input
           type="text"
@@ -31,7 +31,7 @@ const ViewPaste = () => {
         <textarea
           name="content"
           value={paste.content}
-          rows={10}
+          rows={20}
           disabled
           className="border border-slate-300 shadow-sm w-[50%] rounded-lg p-2"
         />

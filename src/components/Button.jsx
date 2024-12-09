@@ -3,7 +3,7 @@ const Button = ({ content, onClick }) => {
     <div>
       <button
         onClick={onClick}
-        className="bg-black text-white text-md font-semibold p-2 px-4 rounded-lg"
+        className="bg-black text-white dark:bg-white dark:text-black text-md font-semibold p-2 px-4 rounded-lg"
       >
         {content}
       </button>

@@ -17,7 +17,7 @@ const HomePage = () => {
               and documentation. Simple, fast, and beautiful.
             </p>
             <div className="mt-10 flex items-center justify-center gap-4">
-              <Link to={"/create-paste"}>
+              <Link to={"/pastes"}>
                 <button className="flex items-center justify-center rounded-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-6 py-3 text-sm font-medium text-white transition-all hover:scale-105 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 active:scale-95">
                   Get Started <GoZap size={18} className="ml-2" />
                 </button>

@@ -56,7 +56,7 @@ const CreatePaste = () => {
   };
 
   return (
-    <div className="mt-10">
+    <div className="mt-10 ">
       <div>
         <h1 className="text-3xl font-bold">
           {pasteId ? "Edit Snippet" : "Create a New Paste"}
@@ -70,7 +70,7 @@ const CreatePaste = () => {
             value={formData.title}
             name="title"
             onChange={handleChange}
-            className="border border-slate-300 shadow-sm w-[50%] rounded-lg p-2"
+            className="border border-slate-300 dark:bg-black shadow-sm w-[50%] rounded-lg p-2"
           />
           <Link to={"/pastes"}>
             <div className="ml-10">
@@ -82,9 +82,10 @@ const CreatePaste = () => {
           <textarea
             value={formData.content}
             name="content"
+            placeholder="Enter content here"
             onChange={handleChange}
             rows={10}
-            className="border border-slate-300 shadow-sm w-[50%] rounded-lg"
+            className="border border-slate-300 dark:bg-black shadow-sm w-[50%] rounded-lg p-2"
           />
         </div>
         <div className="flex gap-3">

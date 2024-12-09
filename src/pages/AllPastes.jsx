@@ -12,6 +12,12 @@ import Button from "../components/Button";
 const AllPastes = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [expandContent, setExpandContent] = useState(false);
+
+  const handleExpandContent = () => {
+    setExpandContent(!expandContent);
+  };
+
   const allPastes = useSelector((store) => store.paste.pastes);
   console.log(allPastes);
 
@@ -38,7 +44,7 @@ const AllPastes = () => {
       {/* search input */}
       <div className="flex justify-between">
         <input
-          className="w-[50%] border p-2 rounded-lg"
+          className="w-[50%] border p-2 rounded-lg dark:bg-black"
           type="text"
           placeholder="Search snippet here"
           value={searchQuery}
@@ -63,11 +69,39 @@ const AllPastes = () => {
           filteredData.map((filteredPaste) => (
             <div
               key={filteredPaste._id}
-              className="flex flex-row justify-between border p-8 mb-2"
+              className="flex flex-col sm:space-y-4 md:flex-row lg:flex-row justify-between border p-8 mb-2 rounded-lg dark:border-gray-600"
             >
-              <div>
-                <div>{filteredPaste.title}</div>
-                <div>{filteredPaste.content}</div>
+              <div className="space-y-3">
+                <div>
+                  <h1 className="text-2xl font-semibold">
+                    {filteredPaste.title}
+                  </h1>
+                </div>
+                <div className="md:w-[70%]">
+                  <p className="text-sm text-gray-600">
+                    {expandContent
+                      ? filteredPaste.content
+                      : filteredPaste.content.length > 300
+                      ? filteredPaste.content.substring(0, 300) + "..."
+                      : filteredPaste.content}
+                  </p>
+                  {filteredPaste.content.length > 300 && !expandContent && (
+                    <p
+                      onClick={handleExpandContent}
+                      className="text-blue-500 cursor-pointer underline"
+                    >
+                      Read More
+                    </p>
+                  )}
+                  {expandContent && filteredPaste.content.length > 300 && (
+                    <p
+                      onClick={handleExpandContent}
+                      className="text-blue-500 cursor-pointer underline"
+                    >
+                      Read Less
+                    </p>
+                  )}
+                </div>
               </div>
 
               <div className="flex flex-col gap-y-3">
