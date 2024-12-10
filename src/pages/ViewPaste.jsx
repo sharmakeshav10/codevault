@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Button from "../components/Button";
+import toast from "react-hot-toast";
 
 const ViewPaste = () => {
   const { id } = useParams();
@@ -35,6 +36,15 @@ const ViewPaste = () => {
           disabled
           className="border border-slate-300 shadow-sm w-[50%] rounded-lg p-2"
         />
+        <div className="ml-10">
+          <Button
+            content={"Copy Paste"}
+            onClick={() => {
+              navigator.clipboard.writeText(paste?.content);
+              toast.success("Copied to clipboard");
+            }}
+          />
+        </div>
       </div>
     </div>
   );

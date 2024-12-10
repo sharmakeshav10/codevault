@@ -125,7 +125,7 @@ const AllPastes = () => {
                   >
                     <RiDeleteBinLine className="hover:fill-red-600" />
                   </div>
-                  <div className="mr-4 cursor-pointer border rounded p-2">
+                  <div className="cursor-pointer border rounded p-2">
                     <MdOutlineContentCopy
                       className="hover:fill-green-400"
                       onClick={() => {
@@ -134,9 +134,9 @@ const AllPastes = () => {
                       }}
                     />
                   </div>
-                  <div className="cursor-pointer border rounded p-2">
+                  {/* <div className="cursor-pointer border rounded p-2">
                     <CiShare2 />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex items-center sm:justify-start md:justify-end gap-2">
                   <span>
