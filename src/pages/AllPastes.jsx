@@ -4,10 +4,11 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deletePaste, removeAllPastes } from "../redux/slices/pasteSlice";
-import { MdOutlineContentCopy } from "react-icons/md";
+import { MdOutlineCalendarToday, MdOutlineContentCopy } from "react-icons/md";
 import { CiShare2 } from "react-icons/ci";
-import { toast } from "react-toastify";
 import Button from "../components/Button";
+import toast from "react-hot-toast";
+import { FormatDate } from "../utils/formatDate";
 
 const AllPastes = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,7 +56,9 @@ const AllPastes = () => {
             <Button content={"New Paste"} />
           </Link>
 
-          <Button onClick={handleRemoveAllPastes} content={"Remove All"} />
+          {filteredData.length > 0 && (
+            <Button onClick={handleRemoveAllPastes} content={"Remove All"} />
+          )}
         </div>
       </div>
 
@@ -106,35 +109,41 @@ const AllPastes = () => {
 
               <div className="flex flex-col gap-y-3">
                 <div className="flex items-center">
-                  <div className="mr-4 cursor-pointer border p-2">
+                  <div className="mr-4 cursor-pointer border rounded p-2">
                     <Link to={`/pastes/${filteredPaste._id}`}>
-                      <FaRegEye />
+                      <FaRegEye className="hover:fill-purple-400" />
                     </Link>
                   </div>
-                  <div className="mr-4 cursor-pointer border p-2">
+                  <div className="mr-4 cursor-pointer border rounded p-2">
                     <Link to={`/create-paste?pasteId=${filteredPaste._id}`}>
-                      <FaRegEdit />
+                      <FaRegEdit className="hover:fill-blue-400" />
                     </Link>
                   </div>
                   <div
-                    className="mr-4 cursor-pointer border p-2"
+                    className="mr-4 cursor-pointer border rounded p-2"
                     onClick={() => handleDeletePaste(filteredPaste._id)}
                   >
-                    <RiDeleteBinLine />
+                    <RiDeleteBinLine className="hover:fill-red-600" />
                   </div>
-                  <div className="mr-4 cursor-pointer border p-2">
+                  <div className="mr-4 cursor-pointer border rounded p-2">
                     <MdOutlineContentCopy
+                      className="hover:fill-green-400"
                       onClick={() => {
                         navigator.clipboard.writeText(filteredPaste?.content);
-                        toast("copied to clipboard");
+                        toast.success("Copied to clipboard");
                       }}
                     />
                   </div>
-                  <div className="cursor-pointer border p-2">
+                  <div className="cursor-pointer border rounded p-2">
                     <CiShare2 />
                   </div>
                 </div>
-                <div>{filteredPaste.createdAt}</div>
+                <div className="flex items-center sm:justify-start md:justify-end gap-2">
+                  <span>
+                    <MdOutlineCalendarToday />
+                  </span>{" "}
+                  {FormatDate(filteredPaste.createdAt)}
+                </div>
               </div>
             </div>
           ))
